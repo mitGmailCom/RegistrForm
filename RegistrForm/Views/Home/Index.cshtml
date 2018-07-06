@@ -1,0 +1,49 @@
+﻿@using RegistrForm.Models;
+@{
+    Layout = null;
+    IEnumerable<User> users = ViewBag.Users;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <fieldset>
+        <legend>List of Users</legend>
+        <div>
+
+            <a href="/Home/Create">Add User</a>
+            <br />
+            @*@Html.ActionLink("Manager for Roles", "Index", "Role", new { list = ListRoles }, null)*@
+            @Html.ActionLink("Manager for Roles", "ToRole")
+        </div>
+        <div>
+            @if (TempData["ResForDel"] != null)
+            {
+                var temp = TempData["ResForDel"];
+                if ((bool)temp)
+                {
+                    Response.Write("<script>window.alert('Value deleted');</script>");
+                }
+                if (!((bool)temp))
+                {
+                    Response.Write("<script>window.alert('Value not deleted');</script>");
+                }
+            }
+            <ul>
+                @if (users?.Any() == true)
+            {
+                foreach (var item in users)
+                {
+                        <li>@item.Login | <a href="/Home/Edit/@item.Id">Edit</a> | <a href="/Home/Delete/@item.Id">Delete</a> </li>
+                    }
+                }
+            </ul>
+        </div>
+        </fieldset>
+</body>
+</html>

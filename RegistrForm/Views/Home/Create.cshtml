@@ -1,0 +1,173 @@
+﻿@using RegistrForm.Models;
+@model RegistrForm.Models.User
+@{
+    Layout = null;
+    //Html.EnableClientValidation(true);
+}
+
+<style>
+    td {
+        padding-left: 20px;
+    }
+
+    .field-validation-error {
+        color: #f00;
+    }
+
+    .field-validation-valid {
+        display: none;
+    }
+
+    .input-validation-error {
+        border: 1px solid #f00;
+        background-color: #fee;
+    }
+
+    .validation-summary-errors {
+        font-weight: bold;
+        color: #f00;
+    }
+
+    .validation-summary-valid {
+        display: none;
+    }
+
+    label {
+        display: inline-block;
+        width: 100px;
+        font-weight: bold;
+        margin: 5px;
+    }
+
+    form label {
+        float: left;
+    }
+
+    input.text-box {
+        float: left;
+        margin: 5px;
+    }
+
+    button[type=submit] {
+        margin-top: 5px;
+        float: left;
+        clear: left;
+    }
+
+    form div {
+        clear: both;
+    }
+</style>
+
+
+
+@using (Html.BeginForm())
+{
+    @*<link type="text/css" rel="stylesheet" href="StyleSheet1.css" />*@
+    @*@Styles.Render("~/Scripts/jquery-1.10.2.js")
+        @Scripts.Render("~/Scripts/jquery.validate.js")
+        @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.js")*@
+    @*<script src="~/Scripts/jquery-1.10.2.js"></script>
+        <script src="~/Scripts/jquery.validate.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>*@
+
+
+    <fieldset>
+        <legend>Create New User</legend>
+        @Html.ValidationSummary()
+        <table>
+            <tr>
+                <td>
+                    <div class="dataElem">
+                        <label>FirstName:</label>
+                    </div>
+
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(u => u.FirstName)
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.ValidationMessageFor(u => u.FirstName)
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>LastName:</label>
+                </td>
+                <td>
+                    @Html.TextBoxFor(u => u.LastName)
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(u => u.LastName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Login:</label>
+                </td>
+                <td>
+                    @Html.TextBoxFor(u => u.Login)
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(u => u.Login)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Password:</label>
+                </td>
+                <td>
+                    @Html.TextBoxFor(u => u.Password)
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(u => u.Password)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Email:</label>
+                </td>
+                <td>
+                    @Html.TextBoxFor(u => u.Email)
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(u => u.Email)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Phone:</label>
+                </td>
+                <td>
+                    @Html.TextBoxFor(u => u.Phone)
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(u => u.Phone)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Role:</label>
+                </td>
+                <td>
+                    @Html.DropDownList("Roles", new SelectList(ViewBag.LRoles, "Id", "Name", 0))
+                </td>
+                <td>
+                    @*@Html.ValidationMessageFor(u => u.LastName)*@
+                </td>
+            </tr>
+        </table>
+
+        <br />
+        <input type="submit" />
+
+    </fieldset>
+
+
+}
+@*</body>
+    </html>*@

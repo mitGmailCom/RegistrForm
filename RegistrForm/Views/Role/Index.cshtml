@@ -1,0 +1,55 @@
+﻿@using RegistrForm.Models;
+@{
+    Layout = null;
+    List<Role> ListRoles = new List<Role>();
+    ListRoles = ViewBag.listOfRoles;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="StyleSheet1.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+    <fieldset>
+        <legend>List of Roles</legend>
+        <div>
+            <a href="/Role/Create">Add Role</a>
+            <br />
+            @Html.ActionLink("List of Usres", "ToUsersList")
+
+            @if (TempData["ResForDelRole"] != null)
+            {
+                var temp = TempData["ResForDelRole"];
+                if (temp is bool)
+                {
+                    bool tempRes = (bool)temp;
+                    if (tempRes)
+                    {
+                        Response.Write($"{temp.ToString()}");
+                    }
+                    if (!tempRes)
+                    {
+                        Response.Write("<script>window.alert('You don`t remove this item. Value is used');</script>");
+                    }
+                }
+            }
+            <table>
+                @*<ul>*@
+                    @for (int i = 0; i < ListRoles.Count; i++)
+                    {
+                        <tr>
+                            <td>@ListRoles[i].Name </td>
+                            <td><a href="/Role/Edit/@ListRoles[i].Id">Edit</a></td>
+                            <td><a href="/Role/Delete/@ListRoles[i].Id">Delete</a></td>
+                        </tr>
+                    }
+                @*</ul>*@
+            </table>
+        </div>
+     </fieldset>
+</body>
+</html>
