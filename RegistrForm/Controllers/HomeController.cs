@@ -22,7 +22,7 @@ namespace RegistrForm.Controllers
             ViewBag.Users = repository.GetAll();
             ViewBag.LRoles = Roles;
 
-            TempData["nicklist"] = Roles;
+            TempData["nicklist"] = ViewBag.LRoles;
             TempData["UsersList"] = repository.Users;
             return RedirectToAction("Index", new { controller = "Role"});
         }
@@ -44,7 +44,7 @@ namespace RegistrForm.Controllers
             if (TempData["listroles"] != null)
             {
                 Roles.Clear();
-                Roles = TempData["listroles"] as List<Role>;
+                Roles = (TempData["listroles"] as List<Role>).ToList();
                 for (int i = 0; i < repository.Users.Count; i++)
                 {
                     for (int j = 0; j < Roles.Count; j++)
@@ -71,9 +71,7 @@ namespace RegistrForm.Controllers
             model.Email = "login@gmail.com";
             model.Phone = "0978887766";
             model.Role = null;
-            //ViewBag.LRoles = new SelectList(Roles, "Id", "Name", 0);
             ViewBag.LRoles = Roles;
-            //ViewBag.Users = repository.GetAll();
             return View(model);
         }
 
@@ -112,14 +110,14 @@ namespace RegistrForm.Controllers
 
         private void CheckLength(FormCollection _formcollection)
         {
-            if (_formcollection["Login"].Length < 8)
+            if (_formcollection["Login"].Length < 4)
             {
-                ModelState.AddModelError("Name", "Invalid length Login");
+                ModelState.AddModelError("Name", "Invalid length Login. Length must be >3");
             }
 
             if (_formcollection["Password"].Length < 8)
             {
-                ModelState.AddModelError("Name", "Invalid length Password");
+                ModelState.AddModelError("Name", "Invalid length Password. Length must be >7");
             }
         }
 
@@ -194,7 +192,6 @@ namespace RegistrForm.Controllers
             ViewBag.Message = "Запрос не прошел валидацию";
             ViewBag.LRoles = Roles;
             return View();
-            //return RedirectToAction("Index", new { controller = "Home" });
         }
 
 
@@ -210,7 +207,8 @@ namespace RegistrForm.Controllers
                 return RedirectToAction("Index");
 
             ViewBag.LRoles = Roles;
-
+            var selectList = new SelectList(Roles, "Id", "Name", existingUser.Role.Id);
+            ViewBag.User = selectList;
             return View(existingUser);
         }
 
@@ -225,6 +223,7 @@ namespace RegistrForm.Controllers
             if (!CheckPhone(formcollection))
                 ModelState.AddModelError("Name", "Invalid Phone");
 
+
             if (ModelState.IsValid)
             {
                 string selectedRole = formcollection["Roles"];
@@ -234,6 +233,7 @@ namespace RegistrForm.Controllers
                     if (Roles[i].Id.ToString() == selectedRole)
                         newUserRole = Roles[i];
                 }
+
                 User newUser = new User()
                 {
                     FirstName = formcollection["FirstName"],
@@ -249,8 +249,30 @@ namespace RegistrForm.Controllers
                 repository.Edit(newUser.Id, newUser);
                 return RedirectToAction("Index");
             }
+
+            string selectedRole1 = formcollection["Roles"];
+            Role newUserRole1 = new Role();
+            for (int i = 0; i < Roles.Count; i++)
+            {
+                if (Roles[i].Id.ToString() == selectedRole1)
+                    newUserRole1 = Roles[i];
+            }
+
+            User newUser1 = new User()
+            {
+                FirstName = formcollection["FirstName"],
+                LastName = formcollection["LastName"],
+                Login = formcollection["Login"],
+                Password = formcollection["Password"],
+                Email = formcollection["Email"],
+                Phone = formcollection["Phone"],
+                Role = newUserRole1,
+                Id = Convert.ToInt32(formcollection["Id"])
+            };
+
             ViewBag.Message = "Запрос не прошел валидацию";
-            return RedirectToAction("Index");
+            ViewBag.LRoles = Roles;
+            return View(newUser1);
         }
 
        

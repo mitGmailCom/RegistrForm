@@ -15,13 +15,6 @@
     <fieldset>
         <legend>List of Users</legend>
         <div>
-
-            <a href="/Home/Create">Add User</a>
-            <br />
-            @*@Html.ActionLink("Manager for Roles", "Index", "Role", new { list = ListRoles }, null)*@
-            @Html.ActionLink("Manager for Roles", "ToRole")
-        </div>
-        <div>
             @if (TempData["ResForDel"] != null)
             {
                 var temp = TempData["ResForDel"];
@@ -45,5 +38,12 @@
             </ul>
         </div>
         </fieldset>
+    <div>
+        <br />
+        <a href="/Home/Create">Add User</a>
+        <br />
+        @*@Html.ActionLink("Manager for Roles", "Index", "Role", new { list = ListRoles }, null)*@
+        @Html.ActionLink("Manager for Roles", "ToRole")
+    </div>
 </body>
 </html>

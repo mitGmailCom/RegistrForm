@@ -2,6 +2,7 @@
 @model RegistrForm.Models.User
 @{
     Layout = null;
+    Html.EnableClientValidation(true);
 }
 <style>
     td {
@@ -62,6 +63,7 @@
     <fieldset>
         <legend>Edit User</legend>
         @Html.ValidationSummary()
+        @Html.HiddenFor(u=> u.Id)
         <table>
             <tr>
                 <td>
@@ -134,7 +136,7 @@
                     <label>Role:</label>
                 </td>
                 <td>
-                    @Html.DropDownList("Roles", new SelectList(ViewBag.LRoles, "Id", "Name", 0))
+                    @Html.DropDownList("Roles", (SelectList)ViewBag.User)
                 </td>
                 <td>
                     @Html.ValidationMessageFor(u => u.LastName)

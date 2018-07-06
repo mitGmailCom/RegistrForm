@@ -17,20 +17,36 @@ namespace RegistrForm.Controllers
 
         public ActionResult Index()
         {
+           
             var listUsers = TempData["UsersList"];
             if (listUsers != null)
             {
                 Users.Clear();
-                Users = listUsers as List<User>;
-            }
-            var listTempData = TempData["nicklist"];
-            if(listTempData is List<Role>)
-            {
-                for (int i = 0; i < (listTempData as List<Role>).Count; i++)
+                for (int i = 0; i < (listUsers as List<User>).Count; i++)
                 {
-                    Roles.Add((listTempData as List<Role>)[i]);
+                    Users.Add((listUsers as List<User>)[i]);
                 }
             }
+
+            //var listTempData = TempData["nicklist"];
+            List<Role> tRole = new List<Role>();
+            if (TempData["nicklist"] is List<Role>)
+            {
+                if (TempData["nicklist"] != null)
+                {
+                    tRole = ((TempData["nicklist"] as List<Role>)).ToList();
+                    if (Roles != null)
+                        Roles.Clear();
+
+                    for (int i = 0; i < tRole.Count; i++)
+                    {
+                        Roles.Add(tRole[i]);
+                    }
+                }
+            }
+               
+
+           
 
             ViewBag.listOfRoles = Roles;
             return View();
@@ -118,8 +134,14 @@ namespace RegistrForm.Controllers
                 roleRepository.Edit(newRole.Id, newRole, Roles);
                 return RedirectToAction("Index");
             }
+
+            Role newRole1 = new Role()
+            {
+                Name = role.Name,
+                Id = role.Id
+            };
             ViewBag.Message = "Non Valid";
-            return RedirectToAction("Index");
+            return View(newRole1);
         }
     }
 }

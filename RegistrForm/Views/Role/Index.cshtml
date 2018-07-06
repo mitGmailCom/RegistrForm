@@ -11,16 +11,12 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
-    <link href="StyleSheet1.css" type="text/css" rel="stylesheet" />
+    @*<link href="StyleSheet1.css" type="text/css" rel="stylesheet" />*@
 </head>
 <body>
     <fieldset>
         <legend>List of Roles</legend>
         <div>
-            <a href="/Role/Create">Add Role</a>
-            <br />
-            @Html.ActionLink("List of Usres", "ToUsersList")
-
             @if (TempData["ResForDelRole"] != null)
             {
                 var temp = TempData["ResForDelRole"];
@@ -29,7 +25,7 @@
                     bool tempRes = (bool)temp;
                     if (tempRes)
                     {
-                        Response.Write($"{temp.ToString()}");
+                        Response.Write("<script>window.alert('You just removed item.');</script>");
                     }
                     if (!tempRes)
                     {
@@ -51,5 +47,11 @@
             </table>
         </div>
      </fieldset>
+    <div>
+        <br />
+        <a href="/Role/Create">Add Role</a>
+        <br />
+        @Html.ActionLink("List of Usres", "ToUsersList")
+    </div>
 </body>
 </html>
