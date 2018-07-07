@@ -2,7 +2,6 @@
 @model RegistrForm.Models.User
 @{
     Layout = null;
-    //Html.EnableClientValidation(true);
 }
 
 <style>
@@ -63,15 +62,6 @@
 
 @using (Html.BeginForm())
 {
-    @*<link type="text/css" rel="stylesheet" href="StyleSheet1.css" />*@
-    @*@Styles.Render("~/Scripts/jquery-1.10.2.js")
-        @Scripts.Render("~/Scripts/jquery.validate.js")
-        @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.js")*@
-    @*<script src="~/Scripts/jquery-1.10.2.js"></script>
-        <script src="~/Scripts/jquery.validate.js"></script>
-        <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>*@
-
-
     <fieldset>
         <legend>Create New User</legend>
         @Html.ValidationSummary()
@@ -121,7 +111,7 @@
                     <label>Password:</label>
                 </td>
                 <td>
-                    @Html.TextBoxFor(u => u.Password)
+                    @Html.PasswordFor(u => u.Password)
                 </td>
                 <td>
                     @Html.ValidationMessageFor(u => u.Password)

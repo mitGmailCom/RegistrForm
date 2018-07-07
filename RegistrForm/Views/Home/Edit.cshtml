@@ -103,7 +103,7 @@
                     <label>Password:</label>
                 </td>
                 <td>
-                    @Html.TextBoxFor(u => u.Password)
+                    @Html.PasswordFor(u => u.Password)
                 </td>
                 <td>
                     @Html.ValidationMessageFor(u => u.Password)
@@ -139,7 +139,7 @@
                     @Html.DropDownList("Roles", (SelectList)ViewBag.User)
                 </td>
                 <td>
-                    @Html.ValidationMessageFor(u => u.LastName)
+                    @*@Html.ValidationMessageFor(u => u.LastName)*@
                 </td>
             </tr>
         </table>
