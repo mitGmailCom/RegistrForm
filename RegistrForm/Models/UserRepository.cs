@@ -62,7 +62,14 @@ namespace RegistrForm.Models
         {
             User existingUser = Get(id);
             if (existingUser != null)
-                ListUsers[existingUser.Id] = user;
+            {
+                for (int i = 0; i < ListUsers.Count; i++)
+                {
+                    if (ListUsers[i].Id == id)
+                        ListUsers[i] = user;
+                }
+
+            }
         }
 
         public User Get(int id)
